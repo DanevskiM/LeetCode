@@ -1,0 +1,14 @@
+with ct as(
+select customer_number as cn, COUNT(customer_number) as counter
+from Orders
+group by customer_number
+),
+
+maks as(
+select MAX(counter) as most
+from ct
+)
+
+select c.cn as customer_number
+from ct c
+join maks m on c.counter=m.most
